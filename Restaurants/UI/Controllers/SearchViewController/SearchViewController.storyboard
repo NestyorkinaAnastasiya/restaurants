@@ -54,6 +54,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="TZM-wH-UiV"/>
                     <connections>
+                        <outlet property="searchRestaurantBar" destination="12q-YV-WZC" id="auh-5k-Krn"/>
                         <outlet property="tableView" destination="5au-tQ-d0E" id="g2h-Qi-Asf"/>
                     </connections>
                 </viewController>

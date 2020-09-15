@@ -11,16 +11,26 @@ import UIKit
 
 class RestaurantViewCell: UITableViewCell {
     static let cellReuseID = "RestaurantViewCell"
+    var viewModel: RestaurantCellViewModel! {
+        didSet {
+            setupCell()
+        }
+    }
     
-   
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var info: UILabel!
     
-    func setupCell(imageLink: String, name: String, description: String) {
-        guard let url = URL(string: imageLink), let data = try? Data(contentsOf: url) else { return }
-        picture.image = UIImage(data: data)
-        self.name.text = name
-        self.info.text = description
+    func setupCell() {        
+        self.name.text = viewModel.name
+        self.info.text = viewModel.description
+        
+        viewModel.mainImage() { [weak self] image in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.picture.image = image
+            }
+        }
+       
     }
 }

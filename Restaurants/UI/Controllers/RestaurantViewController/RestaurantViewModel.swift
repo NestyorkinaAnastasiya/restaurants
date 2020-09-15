@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class RestaurantViewModel {
-    let storage: MainStorage
-    let restaurant: Restaurant
-    var reviews: [Review] = []
+    private let storage: MainStorage
+    private let restaurant: Restaurant
+    private var reviews: [Review] = []
     
     init (restaurant: Restaurant, mainStorage: StorageType) {
         storage = MainStorage(mainStorage: mainStorage)
