@@ -17,8 +17,9 @@ class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = MainTabBarController.instantiate()
-        vc.coordinator = self
+        let storyboard = UIStoryboard(name: "MainTabBarController", bundle: Bundle.main)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
+            as? UITabBarController else { return }
         navigationController.pushViewController(vc, animated: true)
         
         let storage = MainStorage()
@@ -38,9 +39,15 @@ class MainCoordinator: Coordinator {
                     
                     if first == true {
                         search.viewModel = SearchViewModel(storageType: .firebase)
+                        search.title = "Search"
                         first = false
                     } else {
                         search.viewModel = SearchViewModel(storageType: .coreData)
+                        search.tabBarItem = UITabBarItem(title: "Favourite",
+                                                         image: UIImage(systemName: "star.fill",
+                                                                        withConfiguration: nil),
+                                                         selectedImage: nil)
+                        search.title = "Favourite"
                     }
                     
                     search.viewModel.storage = storage
@@ -48,6 +55,7 @@ class MainCoordinator: Coordinator {
                 } else if let map = viewController as? MapViewController {
                     map.coordinator = childCoordinator
                     map.viewModel.storage = storage
+                    map.title = "Map"
                 }
             }
         }

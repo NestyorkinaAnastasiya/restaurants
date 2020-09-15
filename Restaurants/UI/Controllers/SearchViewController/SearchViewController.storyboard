@@ -36,8 +36,12 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5au-tQ-d0E">
-                                <rect key="frame" x="10" y="164" width="394" height="688"/>
+                                <rect key="frame" x="10" y="164" width="394" height="639"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2MH-1Z-wTt" id="Laf-6y-gNW"/>
+                                    <outlet property="delegate" destination="2MH-1Z-wTt" id="pJb-i6-OaM"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -52,7 +56,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v43-Md-MFD"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="lk6-PD-qmh"/>
                     <navigationItem key="navigationItem" id="TZM-wH-UiV"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchRestaurantBar" destination="12q-YV-WZC" id="auh-5k-Krn"/>
                         <outlet property="tableView" destination="5au-tQ-d0E" id="g2h-Qi-Asf"/>
@@ -63,4 +69,7 @@
             <point key="canvasLocation" x="193" y="17"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+    </resources>
 </document>

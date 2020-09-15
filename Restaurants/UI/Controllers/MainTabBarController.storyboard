@@ -36,10 +36,10 @@
             </objects>
             <point key="canvasLocation" x="-277" y="-118"/>
         </scene>
-        <!--Main Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="T1O-HY-xmN">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="Zzt-IQ-Epn" customClass="MainTabBarController" customModule="Restaurantss" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zzt-IQ-Epn" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="JUi-Ga-30w"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JFd-g2-9Uu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>

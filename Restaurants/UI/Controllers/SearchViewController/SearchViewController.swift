@@ -19,8 +19,6 @@ class SearchViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: RestaurantViewCell.cellReuseID, bundle: nil), forCellReuseIdentifier: RestaurantViewCell.cellReuseID)
-        tableView.delegate = self
-        tableView.dataSource = self
         searchRestaurantBar.delegate = self
         
         viewModel.loadRestaurants { [weak self] in
