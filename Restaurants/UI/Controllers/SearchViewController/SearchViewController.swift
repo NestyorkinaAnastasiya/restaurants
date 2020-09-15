@@ -11,7 +11,7 @@ import UIKit
 
 class SearchViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?    
-    var searchViewModel: SearchViewModel!
+    var viewModel: SearchViewModel!
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchRestaurantBar: UISearchBar!
@@ -23,7 +23,7 @@ class SearchViewController: UIViewController, Storyboarded {
         tableView.dataSource = self
         searchRestaurantBar.delegate = self
         
-        searchViewModel?.loadRestaurants { [weak self] in
+        viewModel.loadRestaurants { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -34,8 +34,7 @@ class SearchViewController: UIViewController, Storyboarded {
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let restaurants = searchViewModel?.restaurants else { return 0 }
-        return restaurants.count
+        return viewModel.restourantsCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,21 +44,21 @@ extension SearchViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.viewModel = searchViewModel.restaurantCellViewModel(row: indexPath.row)
+        cell.viewModel = viewModel.restaurantCellViewModel(row: indexPath.row)
         return cell
       }
 }
 
 extension SearchViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let viewModel = searchViewModel else { return }
+        guard let viewModel = viewModel else { return }
         coordinator?.restaurant(viewModel: viewModel, row: indexPath.row)
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchViewModel?.searchRestaurants(text: searchText) { [weak self] in
+        viewModel.searchRestaurants(text: searchText) { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()

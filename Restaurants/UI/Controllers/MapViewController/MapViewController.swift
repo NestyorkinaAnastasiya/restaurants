@@ -11,7 +11,7 @@ import UIKit
 
 class MapViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?
-    private let searchViewModel = SearchViewModel(mainStorage: .firebase)
+    let viewModel = SearchViewModel(storageType: .firebase)
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,38 +13,33 @@ enum StorageType {
     case coreData
 }
 
-class MainStorage: StorageManager {
+class MainStorage {
     private let localStorage = CoreDataStorage()
     private let firebaseStorage = FirebaseStorage()
-    let mainStorage: StorageType
     
-    init (mainStorage: StorageType) {
-        self.mainStorage = mainStorage
-    }
-    
-    func updateReviews(review: Review, callback: @escaping () -> Void) {
-        switch mainStorage {
+    func updateReviews(review: Review, storageType: StorageType, callback: @escaping () -> Void) {
+        switch storageType {
             case .firebase: firebaseStorage.updateReviews(review: review, callback: callback)
             case .coreData: localStorage.updateReviews(review: review, callback: callback)
         }
     }
     
-    func loadRestaurants(callback: @escaping ([Restaurant]) -> Void) {
-        switch mainStorage {
+    func loadRestaurants(storageType: StorageType, callback: @escaping ([Restaurant]) -> Void) {
+        switch storageType {
             case .firebase: firebaseStorage.loadRestaurants(callback: callback)
             case .coreData: localStorage.loadRestaurants(callback: callback)
         }
     }
     
-    func loadAllReviews(callback: @escaping ([Int : Review]) -> Void) {
-        switch mainStorage {
+    func loadAllReviews(storageType: StorageType, callback: @escaping ([Int : Review]) -> Void) {
+        switch storageType {
             case .firebase: firebaseStorage.loadAllReviews(callback: callback)
             case .coreData: localStorage.loadAllReviews(callback: callback)
         }
     }
     
-    func loadRestaurantReviews(restaurantId: Int, callback: @escaping ([Review]) -> Void) {
-        switch mainStorage {
+    func loadRestaurantReviews(restaurantId: Int, storageType: StorageType, callback: @escaping ([Review]) -> Void) {
+        switch storageType {
             case .firebase: firebaseStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
             case .coreData: localStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
         }

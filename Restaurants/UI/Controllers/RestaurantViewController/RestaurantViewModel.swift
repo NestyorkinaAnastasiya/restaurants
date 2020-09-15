@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 class RestaurantViewModel {
-    private let storage: MainStorage
+    private var storage: MainStorage?
     private let restaurant: Restaurant
     private var reviews: [Review] = []
-    
-    init (restaurant: Restaurant, mainStorage: StorageType) {
-        storage = MainStorage(mainStorage: mainStorage)
+    private var storageType: StorageType
+    init (restaurant: Restaurant, storageType: StorageType) {
+        self.storageType = storageType
         self.restaurant = restaurant
     }
 }
@@ -33,7 +33,9 @@ extension RestaurantViewModel {
 
 extension RestaurantViewModel {
     private func reloadReviews (callback: @escaping () -> Void) {
-        storage.loadRestaurantReviews(restaurantId: restaurant.id, callback: { [weak self] data in
+        storage?.loadRestaurantReviews(restaurantId: restaurant.id,
+                                      storageType: storageType,
+                                      callback: { [weak self] data in
             guard let self = self else { return }
             self.reviews = data
             callback()
@@ -47,10 +49,11 @@ extension RestaurantViewModel {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         let date: String = dateFormatter.string(from: currentDate)
-        storage.updateReviews(review: Review(restaurantId: restaurant.id,
+        storage?.updateReviews(review: Review(restaurantId: restaurant.id,
                                              author: author,
                                              reviewText: reviewText,
-                                             date: date)) { [weak self] in
+                                             date: date),
+                              storageType: storageType) { [weak self] in
             guard let self = self else { return }
             self.reloadReviews(callback: callback)
         }

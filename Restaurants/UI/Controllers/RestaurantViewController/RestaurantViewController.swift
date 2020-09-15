@@ -11,7 +11,7 @@ import UIKit
 
 class RestaurantViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?
-    var restaurantViewModel: RestaurantViewModel?
+    var viewModel: RestaurantViewModel?
     
     @IBOutlet weak var mainPhoto: UIImageView!
     @IBOutlet weak var rating: UILabel!
@@ -19,7 +19,7 @@ class RestaurantViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainPhoto.image = restaurantViewModel?.loadMainPhoto()
-        rating.text = restaurantViewModel?.rating()
+        mainPhoto.image = viewModel?.loadMainPhoto()
+        rating.text = viewModel?.rating()
     }
 }

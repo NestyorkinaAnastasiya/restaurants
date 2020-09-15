@@ -26,8 +26,8 @@ class ChildCoordinator: Coordinator {
     func restaurant(viewModel: SearchViewModel, row: Int) {
         let vc = RestaurantViewController.instantiate()
         vc.coordinator = self
-        vc.restaurantViewModel = RestaurantViewModel(restaurant: viewModel.restaurants[row],
-                                                     mainStorage: viewModel.storage.mainStorage)
+        vc.viewModel = RestaurantViewModel(restaurant: viewModel.restaurants[row],
+                                                     storageType: viewModel.storageType)
         navigationController.pushViewController(vc, animated: false)
     }
 }

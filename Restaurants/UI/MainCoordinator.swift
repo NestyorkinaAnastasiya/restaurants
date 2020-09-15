@@ -21,8 +21,11 @@ class MainCoordinator: Coordinator {
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
         
+        let storage = MainStorage()
+        
         // Add childCoordinators
         if let controllers = vc.viewControllers {
+            var first = true
             for controller in controllers {
                 guard let navController = controller as? UINavigationController,
                     let  viewController = navController.viewControllers.last else { return }
@@ -32,11 +35,22 @@ class MainCoordinator: Coordinator {
                 
                 if let search = viewController as? SearchViewController {
                     search.coordinator = childCoordinator
-                    search.searchViewModel = SearchViewModel(mainStorage: .firebase)
+                    
+                    if first == true {
+                        search.viewModel = SearchViewModel(storageType: .firebase)
+                        first = false
+                    } else {
+                        search.viewModel = SearchViewModel(storageType: .coreData)
+                    }
+                    
+                    search.viewModel.storage = storage
+                    
                 } else if let map = viewController as? MapViewController {
                     map.coordinator = childCoordinator
+                    map.viewModel.storage = storage
                 }
             }
         }
     }
+    
 }

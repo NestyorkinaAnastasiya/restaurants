@@ -22,8 +22,8 @@ class RestaurantViewCell: UITableViewCell {
     @IBOutlet weak var info: UILabel!
     
     func setupCell() {        
-        self.name.text = viewModel.name
-        self.info.text = viewModel.description
+        name.text = viewModel.name
+        info.text = viewModel.description
         
         viewModel.mainImage() { [weak self] image in
             guard let self = self else { return }
