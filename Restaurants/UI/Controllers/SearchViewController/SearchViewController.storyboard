@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0yf-W8-cb0">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="g3e-tp-Scf">
+            <objects>
+                <navigationController id="0yf-W8-cb0" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wny-JC-pC0">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2MH-1Z-wTt" kind="relationship" relationship="rootViewController" id="p1y-ds-AtA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k2w-Tc-4jB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-561" y="17"/>
+        </scene>
+        <!--SearchViewController-->
+        <scene sceneID="jAt-cr-cQl">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="2MH-1Z-wTt" userLabel="SearchViewController" customClass="SearchViewController" customModule="Restaurantss" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fsz-fc-Sde">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="12q-YV-WZC">
+                                <rect key="frame" x="10" y="98" width="394" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5au-tQ-d0E">
+                                <rect key="frame" x="10" y="164" width="394" height="688"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v43-Md-MFD" firstAttribute="bottom" secondItem="5au-tQ-d0E" secondAttribute="bottom" constant="10" id="5cE-sB-izG"/>
+                            <constraint firstItem="12q-YV-WZC" firstAttribute="top" secondItem="v43-Md-MFD" secondAttribute="top" constant="10" id="BbQ-Nn-yNO"/>
+                            <constraint firstItem="12q-YV-WZC" firstAttribute="trailing" secondItem="v43-Md-MFD" secondAttribute="trailing" constant="-10" id="MXh-E8-uVl"/>
+                            <constraint firstItem="12q-YV-WZC" firstAttribute="leading" secondItem="v43-Md-MFD" secondAttribute="leading" constant="10" id="XQI-jb-vcd"/>
+                            <constraint firstItem="v43-Md-MFD" firstAttribute="trailing" secondItem="5au-tQ-d0E" secondAttribute="trailing" constant="10" id="fwB-x7-O6x"/>
+                            <constraint firstItem="5au-tQ-d0E" firstAttribute="top" secondItem="12q-YV-WZC" secondAttribute="bottom" constant="10" id="kwN-ve-fcG"/>
+                            <constraint firstItem="5au-tQ-d0E" firstAttribute="leading" secondItem="v43-Md-MFD" secondAttribute="leading" constant="10" id="vzf-8A-ELK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v43-Md-MFD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="TZM-wH-UiV"/>
+                    <connections>
+                        <outlet property="tableView" destination="5au-tQ-d0E" id="g2h-Qi-Asf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XsX-tn-kKl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="193" y="17"/>
+        </scene>
+    </scenes>
+</document>
