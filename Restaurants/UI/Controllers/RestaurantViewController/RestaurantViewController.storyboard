@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,7 +39,7 @@
                                                     <constraint firstAttribute="height" constant="150" id="ytO-mG-Jzk"/>
                                                 </constraints>
                                             </mapView>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-Kh-5u3">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-Kh-5u3">
                                                 <rect key="frame" x="10" y="361" width="394" height="100"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -52,16 +51,11 @@
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
-                                                <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="6kv-Sb-ZC7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OUO-2S-JCq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </collectionViewCellContentView>
-                                                    </collectionViewCell>
-                                                </cells>
+                                                <cells/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="5KN-o5-i3i" id="fHa-jT-7CL"/>
+                                                    <outlet property="delegate" destination="5KN-o5-i3i" id="NaM-Dr-8N8"/>
+                                                </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYz-nz-jHb">
                                                 <rect key="frame" x="10" y="471" width="394" height="20.333333333333314"/>
@@ -191,7 +185,9 @@
                         <viewLayoutGuide key="safeArea" id="RTB-EF-1Sh"/>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="NmD-Kh-5u3" id="dhS-E3-bgR"/>
                         <outlet property="mainPhoto" destination="mag-Ii-F8r" id="3dd-x3-E9o"/>
+                        <outlet property="mapView" destination="ujJ-m9-0x4" id="lOI-bJ-Suf"/>
                         <outlet property="rating" destination="Zto-jO-Czz" id="N8I-e3-07N"/>
                     </connections>
                 </viewController>

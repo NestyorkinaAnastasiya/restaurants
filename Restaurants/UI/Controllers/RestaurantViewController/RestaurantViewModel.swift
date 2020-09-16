@@ -8,12 +8,18 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class RestaurantViewModel {
     private var storage: MainStorage?
     private let restaurant: Restaurant
     private var reviews: [Review] = []
     private var storageType: StorageType
+    
+    var photoesCount: Int {
+        return restaurant.imagePaths.count
+    }
+    
     init (restaurant: Restaurant, storageType: StorageType) {
         self.storageType = storageType
         self.restaurant = restaurant
@@ -28,6 +34,24 @@ extension RestaurantViewModel {
     
     func rating() -> String {
         return String(restaurant.rating)
+    }
+    
+    func annotation() -> MKAnnotation {
+        let annotation = MKPointAnnotation()
+        
+        annotation.title = restaurant.name
+        
+        let latitude = restaurant.location["lat"]!
+        let longitude = restaurant.location["lon"]!
+        let centerCoordinate = CLLocationCoordinate2D(latitude: Double(latitude),
+                                                      longitude: Double(longitude))
+        annotation.coordinate = centerCoordinate
+        
+        return annotation
+    }
+    
+    func imageLink(row: Int) -> String {
+        return restaurant.imagePaths[row]
     }
 }
 

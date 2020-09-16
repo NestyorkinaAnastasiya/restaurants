@@ -38,6 +38,7 @@ class ChildCoordinator: Coordinator {
         vc.coordinator = self
         vc.viewModel = RestaurantViewModel(restaurant: annotation.restaurant,
                                            storageType: viewModel.storageType)
+        vc.title = annotation.restaurant.name
         navigationController.pushViewController(vc, animated: false)
     }
 }
