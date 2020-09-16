@@ -49,7 +49,6 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let viewModel = viewModel else { return }
         coordinator?.restaurant(viewModel: viewModel, row: indexPath.row)
     }
 }

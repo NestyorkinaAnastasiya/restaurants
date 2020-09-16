@@ -36,6 +36,8 @@
 		6181888D250B3009001C42D3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6181888C250B3009001C42D3 /* SearchViewController.swift */; };
 		6181888F250B3057001C42D3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6181888E250B3057001C42D3 /* MapViewController.swift */; };
 		61818894250B662F001C42D3 /* RestaurantViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61818893250B662F001C42D3 /* RestaurantViewCell.xib */; };
+		618B0FAE2511F8B800A2A011 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B0FAD2511F8B800A2A011 /* TabViewModel.swift */; };
+		618B0FB0251203F400A2A011 /* RestaurantAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618B0FAF251203F400A2A011 /* RestaurantAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		6181888C250B3009001C42D3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		6181888E250B3057001C42D3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		61818893250B662F001C42D3 /* RestaurantViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantViewCell.xib; sourceTree = "<group>"; };
+		618B0FAD2511F8B800A2A011 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
+		618B0FAF251203F400A2A011 /* RestaurantAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,7 @@
 				61818884250B2D34001C42D3 /* Coordinator.swift */,
 				61818886250B2D8A001C42D3 /* Storyboarded.swift */,
 				616B60CF250A31E800737231 /* StorageManager.swift */,
+				618B0FAD2511F8B800A2A011 /* TabViewModel.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 				61818880250B27FA001C42D3 /* MapViewController.storyboard */,
 				6181888E250B3057001C42D3 /* MapViewController.swift */,
 				614ED76F2510E48100FA3742 /* MapViewModel.swift */,
+				618B0FAF251203F400A2A011 /* RestaurantAnnotation.swift */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				616B60CC250A313E00737231 /* Review.swift in Sources */,
 				6181888B250B2F7B001C42D3 /* RestaurantViewController.swift in Sources */,
 				6143B8DF250F8093005461CE /* ChildCoordinator.swift in Sources */,
+				618B0FB0251203F400A2A011 /* RestaurantAnnotation.swift in Sources */,
 				616B60D0250A31E800737231 /* StorageManager.swift in Sources */,
 				616B60CA250A30C300737231 /* Restaurant.swift in Sources */,
 				616B6095250A2D3A00737231 /* AppDelegate.swift in Sources */,
@@ -443,6 +450,7 @@
 				6143B8DD250F5B3A005461CE /* RestaurantViewCell.swift in Sources */,
 				614ED7702510E48100FA3742 /* MapViewModel.swift in Sources */,
 				6181888D250B3009001C42D3 /* SearchViewController.swift in Sources */,
+				618B0FAE2511F8B800A2A011 /* TabViewModel.swift in Sources */,
 				6143B8D7250F3300005461CE /* SearchViewModel.swift in Sources */,
 				616B60D3250A37B600737231 /* CoreDataStorage.swift in Sources */,
 				616B60D5250A380400737231 /* FirebaseStorage.swift in Sources */,

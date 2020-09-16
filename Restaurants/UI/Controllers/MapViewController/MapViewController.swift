@@ -14,14 +14,19 @@ class MapViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?
     let viewModel = MapViewModel(storageType: .firebase)
     
+    @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.annotations { [weak self] annotations in
+            guard let self = self else { return }
+            self.mapView.addAnnotations(annotations)
+        }
     }
 }
 
 extension MapViewController: MKMapViewDelegate {
-    //Tells the delegate that the user tapped one of the annotation view’s accessory buttons.
-    func mapView(_: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped: UIControl) {
-        
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        coordinator?.restaurant(viewModel: viewModel, annotationView: view)
     }
+    
 }

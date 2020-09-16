@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class ChildCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
@@ -23,11 +24,20 @@ class ChildCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func restaurant(viewModel: SearchViewModel, row: Int) {
+    func restaurant(viewModel: TabViewModel, row: Int) {
         let vc = RestaurantViewController.instantiate()
         vc.coordinator = self
         vc.viewModel = RestaurantViewModel(restaurant: viewModel.restaurants[row],
                                                      storageType: viewModel.storageType)
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func restaurant(viewModel: TabViewModel, annotationView: MKAnnotationView) {
+        guard let annotation = annotationView.annotation as? RestaurantAnnotationModelView else { return }
+        let vc = RestaurantViewController.instantiate()
+        vc.coordinator = self
+        vc.viewModel = RestaurantViewModel(restaurant: annotation.restaurant,
+                                           storageType: viewModel.storageType)
         navigationController.pushViewController(vc, animated: false)
     }
 }

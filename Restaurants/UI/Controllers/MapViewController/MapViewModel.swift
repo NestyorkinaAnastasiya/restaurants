@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class MapViewModel {
+class MapViewModel: TabViewModel {
     var storage: MainStorage?
     var restaurants: [Restaurant] = []
     var storageType: StorageType
@@ -25,18 +25,19 @@ class MapViewModel {
 }
 
 extension MapViewModel {
-    func loadRestaurants(callback: @escaping () -> Void) {
+    
+    func annotations(callback: @escaping ([MKAnnotation]) -> Void) {
         storage?.loadRestaurants(storageType: storageType, callback: { [weak self] data in
             guard let self = self else { return }
             self.restaurants = data
-            callback()
+               
+            var result: [MKAnnotation] = []
+            for restaurant in self.restaurants {
+                let annotation = RestaurantAnnotationModelView(restaurant: restaurant)
+                result.append(annotation)
+            }
+            
+            callback(result)
         })
-    }
-    
-    func annotations(callback: @escaping ([MKAnnotation]) -> Void) {
-        var result: [MKAnnotation] = []
-        
-        for restaurant in restaurants {
-        }
     }
 }

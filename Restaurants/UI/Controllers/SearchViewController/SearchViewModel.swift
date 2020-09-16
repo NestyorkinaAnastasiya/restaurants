@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SearchViewModel {
+class SearchViewModel: TabViewModel {
     var storage: MainStorage?
     var restaurants: [Restaurant] = []
     private var allRestaurants: [Restaurant] = []
