@@ -20,24 +20,18 @@ class RestaurantViewCell: UITableViewCell {
     @IBOutlet weak var picture: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var info: UILabel!
-    private var imageCache: [String: UIImage?] = [:]
     
     func setupCell() {        
         name.text = viewModel.name
         info.text = viewModel.description
         picture.image = nil
 
-        let link = viewModel.imageLink
-        if let img = imageCache[link] {
-            picture.image = img
-            return
-        }
-        
-        viewModel.mainImage() { [weak self] image in
+        viewModel.mainImage() { [weak self] link, image in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.imageCache[link] = image
-                self.picture.image = image
+            if link == self.viewModel.imageLink {
+                DispatchQueue.main.async {
+                    self.picture.image = image
+                }
             }
         }
        

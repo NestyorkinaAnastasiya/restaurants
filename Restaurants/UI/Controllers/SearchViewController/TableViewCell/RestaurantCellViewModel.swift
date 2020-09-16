@@ -28,17 +28,18 @@ class RestaurantCellViewModel {
 }
 
 extension RestaurantCellViewModel {
-     func image(imagePath: Int, callback: @escaping (UIImage?) -> Void) {
+     func image(imagePath: Int, callback: @escaping (String, UIImage?) -> Void) {
          DispatchQueue.global().async {
-             if let url = URL(string: self.restaurant.imagePaths[imagePath]) {
+            let link = self.restaurant.imagePaths[imagePath]
+             if let url = URL(string: link) {
                  if let data = try? Data(contentsOf: url) {
-                     callback(UIImage(data: data))
+                     callback(link, UIImage(data: data))
                  }
              }
          }
      }
      
-     func mainImage(callback: @escaping (UIImage?) -> Void) {
+     func mainImage(callback: @escaping (String, UIImage?) -> Void) {
          image(imagePath: 0, callback: callback)
      }
     
