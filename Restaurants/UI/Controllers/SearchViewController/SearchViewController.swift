@@ -63,4 +63,12 @@ extension SearchViewController: UISearchBarDelegate {
             }
         }
     }
+        
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchRestaurantBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchRestaurantBar.endEditing(true)
+    }
 }
