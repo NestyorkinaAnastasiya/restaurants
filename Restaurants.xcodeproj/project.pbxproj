@@ -13,6 +13,7 @@
 		6143B8DD250F5B3A005461CE /* RestaurantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6143B8DC250F5B3A005461CE /* RestaurantViewCell.swift */; };
 		6143B8DF250F8093005461CE /* ChildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6143B8DE250F8093005461CE /* ChildCoordinator.swift */; };
 		614ED76C2510A42800FA3742 /* RestaurantCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ED76B2510A42800FA3742 /* RestaurantCellViewModel.swift */; };
+		614ED7702510E48100FA3742 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ED76F2510E48100FA3742 /* MapViewModel.swift */; };
 		616B6095250A2D3A00737231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616B6094250A2D3A00737231 /* AppDelegate.swift */; };
 		616B6097250A2D3A00737231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616B6096250A2D3A00737231 /* SceneDelegate.swift */; };
 		616B609B250A2D3C00737231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 616B609A250A2D3C00737231 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		6143B8DC250F5B3A005461CE /* RestaurantViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewCell.swift; sourceTree = "<group>"; };
 		6143B8DE250F8093005461CE /* ChildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCoordinator.swift; sourceTree = "<group>"; };
 		614ED76B2510A42800FA3742 /* RestaurantCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCellViewModel.swift; sourceTree = "<group>"; };
+		614ED76F2510E48100FA3742 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		616B6091250A2D3A00737231 /* Restaurantss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurantss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		616B6094250A2D3A00737231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		616B6096250A2D3A00737231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				61818880250B27FA001C42D3 /* MapViewController.storyboard */,
 				6181888E250B3057001C42D3 /* MapViewController.swift */,
+				614ED76F2510E48100FA3742 /* MapViewModel.swift */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				61818889250B2DC9001C42D3 /* MainCoordinator.swift in Sources */,
 				61818887250B2D8A001C42D3 /* Storyboarded.swift in Sources */,
 				6143B8DD250F5B3A005461CE /* RestaurantViewCell.swift in Sources */,
+				614ED7702510E48100FA3742 /* MapViewModel.swift in Sources */,
 				6181888D250B3009001C42D3 /* SearchViewController.swift in Sources */,
 				6143B8D7250F3300005461CE /* SearchViewModel.swift in Sources */,
 				616B60D3250A37B600737231 /* CoreDataStorage.swift in Sources */,

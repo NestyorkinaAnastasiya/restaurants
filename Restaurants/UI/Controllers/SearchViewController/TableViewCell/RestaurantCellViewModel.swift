@@ -17,6 +17,9 @@ class RestaurantCellViewModel {
     var description: String {
         return restaurant.description
     }
+    var imageLink: String {
+        return restaurant.imagePaths[0]
+    }
     
     init(restaurant: Restaurant) {
         self.restaurant = restaurant
@@ -38,4 +41,5 @@ extension RestaurantCellViewModel {
      func mainImage(callback: @escaping (UIImage?) -> Void) {
          image(imagePath: 0, callback: callback)
      }
+    
 }
