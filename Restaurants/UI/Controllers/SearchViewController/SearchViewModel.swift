@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class SearchViewModel: TabViewModel {
-    var storage: MainStorage?
+    private var storage: MainStorage
     var restaurants: [Restaurant] = []
     private var allRestaurants: [Restaurant] = []
     var storageType: StorageType
@@ -19,14 +19,15 @@ class SearchViewModel: TabViewModel {
         return restaurants.count
     }
     
-    init (storageType: StorageType) {
+    init (storageType: StorageType, storage: MainStorage) {
         self.storageType = storageType
+        self.storage = storage
     }
 }
 
 extension SearchViewModel {
     func loadRestaurants(callback: @escaping () -> Void) {
-        storage?.loadRestaurants(storageType: storageType, callback: { [weak self] data in
+        storage.loadRestaurants(storageType: storageType, callback: { [weak self] data in
             guard let self = self else { return }
             self.restaurants = data
             self.allRestaurants = data

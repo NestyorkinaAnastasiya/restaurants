@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct Review: Codable {
-    let restaurantId: Int
+struct RemoteReview: Codable {
     let author: String
-    let reviewText: String
     let date: String
+    let restaurantId: Int
+    let reviewText: String
+}
+
+struct Review {
+    let author: String
+    let date: Date
+    let restaurantId: Int
+    let reviewText: String
 }

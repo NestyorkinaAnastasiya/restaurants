@@ -16,6 +16,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func setupImage(imageLink: String) {
         link = imageLink
+        imageView.image = nil
         DispatchQueue.global().async {
             if let url = URL(string: self.link) {
                 if let data = try? Data(contentsOf: url) {

@@ -26,6 +26,9 @@
 		616B60D3250A37B600737231 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616B60D2250A37B600737231 /* CoreDataStorage.swift */; };
 		616B60D5250A380400737231 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616B60D4250A380400737231 /* FirebaseStorage.swift */; };
 		616B60D8250A3BE400737231 /* RestaurantViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 616B60D7250A3BE400737231 /* RestaurantViewController.storyboard */; };
+		616C913225131DD100D28FCB /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 616C913125131DD100D28FCB /* ReviewTableViewCell.xib */; };
+		616C91342513244100D28FCB /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C91332513244100D28FCB /* ReviewTableViewCell.swift */; };
+		616C91362513272B00D28FCB /* ReviewCellModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616C91352513272B00D28FCB /* ReviewCellModelView.swift */; };
 		6181887E250B24B6001C42D3 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6181887D250B24B6001C42D3 /* SearchViewController.storyboard */; };
 		61818881250B27FA001C42D3 /* MapViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61818880250B27FA001C42D3 /* MapViewController.storyboard */; };
 		61818883250B28D3001C42D3 /* MainTabBarController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61818882250B28D3001C42D3 /* MainTabBarController.storyboard */; };
@@ -85,6 +88,9 @@
 		616B60D2250A37B600737231 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		616B60D4250A380400737231 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		616B60D7250A3BE400737231 /* RestaurantViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RestaurantViewController.storyboard; sourceTree = "<group>"; };
+		616C913125131DD100D28FCB /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
+		616C91332513244100D28FCB /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		616C91352513272B00D28FCB /* ReviewCellModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCellModelView.swift; sourceTree = "<group>"; };
 		6181887D250B24B6001C42D3 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 		61818880250B27FA001C42D3 /* MapViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapViewController.storyboard; sourceTree = "<group>"; };
 		61818882250B28D3001C42D3 /* MainTabBarController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainTabBarController.storyboard; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 		616B60D6250A397600737231 /* RestaurantViewController */ = {
 			isa = PBXGroup;
 			children = (
+				616C91302513057F00D28FCB /* ReviewCell */,
 				618B0FB12512238600A2A011 /* PhotoCell */,
 				6143B8DA250F4E37005461CE /* RestaurantViewModel.swift */,
 				616B60D7250A3BE400737231 /* RestaurantViewController.storyboard */,
@@ -272,6 +279,16 @@
 				616B60C4250A2DE700737231 /* AppDelegate */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		616C91302513057F00D28FCB /* ReviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				616C913125131DD100D28FCB /* ReviewTableViewCell.xib */,
+				616C91332513244100D28FCB /* ReviewTableViewCell.swift */,
+				616C91352513272B00D28FCB /* ReviewCellModelView.swift */,
+			);
+			path = ReviewCell;
 			sourceTree = "<group>";
 		};
 		6181887C250B248E001C42D3 /* SearchViewController */ = {
@@ -421,6 +438,7 @@
 			files = (
 				618B0FB3251223B100A2A011 /* PhotoCollectionViewCell.xib in Resources */,
 				61818883250B28D3001C42D3 /* MainTabBarController.storyboard in Resources */,
+				616C913225131DD100D28FCB /* ReviewTableViewCell.xib in Resources */,
 				616B60D8250A3BE400737231 /* RestaurantViewController.storyboard in Resources */,
 				61818894250B662F001C42D3 /* RestaurantViewCell.xib in Resources */,
 				61818881250B27FA001C42D3 /* MapViewController.storyboard in Resources */,
@@ -452,9 +470,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				616B60CC250A313E00737231 /* Review.swift in Sources */,
+				616C91342513244100D28FCB /* ReviewTableViewCell.swift in Sources */,
 				6181888B250B2F7B001C42D3 /* RestaurantViewController.swift in Sources */,
 				6143B8DF250F8093005461CE /* ChildCoordinator.swift in Sources */,
 				618B0FB0251203F400A2A011 /* RestaurantAnnotation.swift in Sources */,
+				616C91362513272B00D28FCB /* ReviewCellModelView.swift in Sources */,
 				616B60D0250A31E800737231 /* StorageManager.swift in Sources */,
 				616B60CA250A30C300737231 /* Restaurant.swift in Sources */,
 				616B6095250A2D3A00737231 /* AppDelegate.swift in Sources */,

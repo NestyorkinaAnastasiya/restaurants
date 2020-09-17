@@ -10,7 +10,7 @@ import Foundation
 
 class CoreDataStorage: StorageManager {
     
-    func updateReviews(review: Review, callback: @escaping () -> Void) {
+    func updateReviews(review: RemoteReview, callback: @escaping () -> Void) {
         
     }
     
@@ -18,7 +18,7 @@ class CoreDataStorage: StorageManager {
         
     }
     
-    func loadAllReviews(callback: @escaping ([Int : Review]) -> Void) {
+    func loadAllReviews(callback: @escaping ([Review]) -> Void) {
         
     }
     

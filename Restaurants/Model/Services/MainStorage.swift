@@ -17,7 +17,7 @@ class MainStorage {
     private let localStorage = CoreDataStorage()
     private let firebaseStorage = FirebaseStorage()
     
-    func updateReviews(review: Review, storageType: StorageType, callback: @escaping () -> Void) {
+    func updateReviews(review: RemoteReview, storageType: StorageType, callback: @escaping () -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.updateReviews(review: review, callback: callback)
             case .coreData: localStorage.updateReviews(review: review, callback: callback)
@@ -31,7 +31,7 @@ class MainStorage {
         }
     }
     
-    func loadAllReviews(storageType: StorageType, callback: @escaping ([Int : Review]) -> Void) {
+    func loadAllReviews(storageType: StorageType, callback: @escaping ([Review]) -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.loadAllReviews(callback: callback)
             case .coreData: localStorage.loadAllReviews(callback: callback)

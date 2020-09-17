@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 
 class RestaurantViewModel {
-    private var storage: MainStorage?
+    private var storage: MainStorage
     private let restaurant: Restaurant
     private var reviews: [Review] = []
     private var storageType: StorageType
@@ -19,8 +19,21 @@ class RestaurantViewModel {
     var photoesCount: Int {
         return restaurant.imagePaths.count
     }
+    var info: String {
+        return "\(restaurant.description)"
+    }
+    var address: String {
+        return "\(restaurant.address)"
+    }
+    var name: String {
+        return restaurant.name
+    }
+    var reviewCount: Int {
+        reviews.count
+    }
     
-    init (restaurant: Restaurant, storageType: StorageType) {
+    init (restaurant: Restaurant, storageType: StorageType, storage: MainStorage) {
+        self.storage = storage
         self.storageType = storageType
         self.restaurant = restaurant
     }
@@ -53,30 +66,39 @@ extension RestaurantViewModel {
     func imageLink(row: Int) -> String {
         return restaurant.imagePaths[row]
     }
+    
+    func reviewCellModel(row: Int) -> ReviewCellModelView {
+        let review = reviews[row]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        let date = dateFormatter.string(from: review.date)
+        
+        return ReviewCellModelView(author: review.author,
+                                   date: date,
+                                   review: review.reviewText)
+    }
 }
 
 extension RestaurantViewModel {
-    private func reloadReviews (callback: @escaping () -> Void) {
-        storage?.loadRestaurantReviews(restaurantId: restaurant.id,
+    func reloadReviews (callback: @escaping () -> Void) {
+        storage.loadRestaurantReviews(restaurantId: restaurant.id,
                                       storageType: storageType,
                                       callback: { [weak self] data in
             guard let self = self else { return }
-            self.reviews = data
+            self.reviews = data.sorted{ $0.date < $1.date }
             callback()
         })
     }
     
     func addReview(author: String, reviewText: String, callback: @escaping () -> Void) {
         let currentDate = Date()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        
-        let date: String = dateFormatter.string(from: currentDate)
-        storage?.updateReviews(review: Review(restaurantId: restaurant.id,
-                                             author: author,
-                                             reviewText: reviewText,
-                                             date: date),
+        let dateFormatter = ISO8601DateFormatter()
+        let date = dateFormatter.string(from: currentDate)
+        storage.updateReviews(review: RemoteReview(author: author,
+                                                   date: date,
+                                                   restaurantId: restaurant.id,
+                                                   reviewText: reviewText),
                               storageType: storageType) { [weak self] in
             guard let self = self else { return }
             self.reloadReviews(callback: callback)

@@ -13,9 +13,11 @@ import MapKit
 class ChildCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    let storage: MainStorage
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, storage: MainStorage) {
         self.navigationController = navigationController
+        self.storage = storage
     }
     
     func start() {
@@ -28,7 +30,8 @@ class ChildCoordinator: Coordinator {
         let vc = RestaurantViewController.instantiate()
         vc.coordinator = self
         vc.viewModel = RestaurantViewModel(restaurant: viewModel.restaurants[row],
-                                                     storageType: viewModel.storageType)
+                                           storageType: viewModel.storageType,
+                                           storage: storage)
         navigationController.pushViewController(vc, animated: false)
     }
     
@@ -37,8 +40,8 @@ class ChildCoordinator: Coordinator {
         let vc = RestaurantViewController.instantiate()
         vc.coordinator = self
         vc.viewModel = RestaurantViewModel(restaurant: annotation.restaurant,
-                                           storageType: viewModel.storageType)
-        vc.title = annotation.restaurant.name
+                                           storageType: viewModel.storageType,
+                                           storage: storage)
         navigationController.pushViewController(vc, animated: false)
     }
 }

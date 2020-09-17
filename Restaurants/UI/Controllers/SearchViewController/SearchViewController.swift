@@ -18,7 +18,8 @@ class SearchViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: RestaurantViewCell.cellReuseID, bundle: nil), forCellReuseIdentifier: RestaurantViewCell.cellReuseID)
+        tableView.register(UINib(nibName: RestaurantViewCell.cellReuseID, bundle: nil),
+                           forCellReuseIdentifier: RestaurantViewCell.cellReuseID)
         searchRestaurantBar.delegate = self
         
         viewModel.loadRestaurants { [weak self] in
@@ -44,7 +45,7 @@ extension SearchViewController: UITableViewDataSource {
         
         cell.viewModel = viewModel.restaurantCellViewModel(row: indexPath.row)
         return cell
-      }
+    }
 }
 
 extension SearchViewController: UITableViewDelegate {    

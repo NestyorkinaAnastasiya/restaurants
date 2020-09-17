@@ -11,7 +11,7 @@ import Foundation
 class FirebaseStorage: StorageManager {
     private let restaurantsLink = "https://restaurants-f64d7.firebaseio.com/"
     
-    func updateReviews(review: Review, callback: @escaping () -> Void) {
+    func updateReviews(review: RemoteReview, callback: @escaping () -> Void) {
         guard let url = URL(string: restaurantsLink + "reviews.json") else {return}
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -51,7 +51,7 @@ class FirebaseStorage: StorageManager {
             task.resume()
     }
     
-    func loadAllReviews(callback: @escaping ([Int : Review]) -> Void) {
+    func loadAllReviews(callback: @escaping ([Review]) -> Void) {
         guard let url = URL(string: restaurantsLink + "reviews.json") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -59,8 +59,19 @@ class FirebaseStorage: StorageManager {
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             guard let data = data else { return }//error handling
             do {
-                let reviews = try JSONDecoder().decode([Int: Review].self, from: data)
-                    callback(reviews)
+                let result = try JSONDecoder().decode([Int: RemoteReview].self, from: data)
+                var reviews: [Review] = []
+                let dateFormatter = ISO8601DateFormatter()
+                for remoteReview in result {
+                    let review = remoteReview.value
+                    if let date = dateFormatter.date(from: review.date) {
+                        reviews.append(Review(author: review.author,
+                                              date: date,
+                                              restaurantId: review.restaurantId,
+                                              reviewText: review.reviewText))
+                    }
+                }
+                callback(reviews)
             } catch let error {
                 //error handling
             }
@@ -70,19 +81,30 @@ class FirebaseStorage: StorageManager {
     }
     
     func loadRestaurantReviews(restaurantId: Int, callback: @escaping ([Review]) -> Void) {
-        //  https://restaurants-f64d7.firebaseio.com/reviews.json?orderBy="restaurantId"&equalTo
-
-        guard let url = URL(string: restaurantsLink + "reviews.json?orderBy=\"\(restaurantId)\"&equalTo") else {return}
+        //  https://restaurants-f64d7.firebaseio.com/reviews.json?orderBy=%22restaurantId%22&equalTo=5
+        guard let url = URL(string: restaurantsLink + "reviews.json?orderBy=%22restaurantId%22&equalTo=\(restaurantId)") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
             
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             guard let data = data else { return }//error handling
             do {
-                let reviews = try JSONDecoder().decode([Review].self, from: data)
+                let result = try JSONDecoder().decode([String: RemoteReview].self, from: data)
+                var reviews: [Review] = []
+                let dateFormatter = ISO8601DateFormatter()
+                for remoteReview in result {
+                    let review = remoteReview.value
+                    if let date = dateFormatter.date(from: review.date) {
+                        reviews.append(Review(author: review.author,
+                                              date: date,
+                                              restaurantId: review.restaurantId,
+                                              reviewText: review.reviewText))
+                    }
+                }
                 callback(reviews)
             } catch let error {
                 //error handling
+                print(error.localizedDescription)
             }
         })
             

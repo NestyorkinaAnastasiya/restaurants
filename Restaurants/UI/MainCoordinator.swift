@@ -31,18 +31,21 @@ class MainCoordinator: Coordinator {
                 guard let navController = controller as? UINavigationController,
                     let  viewController = navController.viewControllers.last else { return }
                 
-                let childCoordinator = ChildCoordinator(navigationController: navController)
+                let childCoordinator = ChildCoordinator(navigationController: navController,
+                                                        storage: storage)
                 childCoordinators.append(childCoordinator)
                 
                 if let search = viewController as? SearchViewController {
                     search.coordinator = childCoordinator
                     
                     if first == true {
-                        search.viewModel = SearchViewModel(storageType: .firebase)
+                        search.viewModel = SearchViewModel(storageType: .firebase,
+                                                           storage: storage)
                         search.title = "Search"
                         first = false
                     } else {
-                        search.viewModel = SearchViewModel(storageType: .coreData)
+                        search.viewModel = SearchViewModel(storageType: .coreData,
+                                                           storage: storage)
                         search.tabBarItem = UITabBarItem(title: "Favourite",
                                                          image: UIImage(systemName: "star.fill",
                                                                         withConfiguration: nil),
@@ -50,11 +53,10 @@ class MainCoordinator: Coordinator {
                         search.title = "Favourite"
                     }
                     
-                    search.viewModel.storage = storage
-                    
                 } else if let map = viewController as? MapViewController {
                     map.coordinator = childCoordinator
-                    map.viewModel.storage = storage
+                    map.viewModel = MapViewModel(storageType: .firebase,
+                                                 storage: storage)
                     map.title = "Map"
                 }
             }

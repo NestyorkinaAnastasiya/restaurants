@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 
 class MapViewModel: TabViewModel {
-    var storage: MainStorage?
+    private var storage: MainStorage
     var restaurants: [Restaurant] = []
     var storageType: StorageType
     
@@ -19,15 +19,17 @@ class MapViewModel: TabViewModel {
         return restaurants.count
     }
     
-    init (storageType: StorageType) {
+    init (storageType: StorageType,
+          storage: MainStorage) {
         self.storageType = storageType
+        self.storage = storage
     }
 }
 
 extension MapViewModel {
     
     func annotations(callback: @escaping ([MKAnnotation]) -> Void) {
-        storage?.loadRestaurants(storageType: storageType, callback: { [weak self] data in
+        storage.loadRestaurants(storageType: storageType, callback: { [weak self] data in
             guard let self = self else { return }
             self.restaurants = data
                

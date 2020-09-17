@@ -12,7 +12,7 @@ import MapKit
 
 class MapViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?
-    let viewModel = MapViewModel(storageType: .firebase)
+    var viewModel: MapViewModel!
     
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
