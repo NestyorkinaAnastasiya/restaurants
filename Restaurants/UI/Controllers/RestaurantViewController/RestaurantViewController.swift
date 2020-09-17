@@ -25,6 +25,10 @@ class RestaurantViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var info: UILabel!
     @IBOutlet private weak var address: UILabel!
+    @IBOutlet private weak var reviewTextView: UITextView!
+    @IBOutlet private weak var authorTextField: UITextField!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +60,32 @@ class RestaurantViewController: UIViewController, Storyboarded {
                 self.tableView.reloadData()
             }
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+
+    }
+    
+    @IBAction func tapSendButton(_ sender: Any) {
+        guard let authorText = authorTextField.text, let reviewText = reviewTextView.text else { return }
+        viewModel.addReview(author: authorText,
+                            reviewText: reviewText) { [weak self] in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 
+// MARK: CollectionViewDelegate
 extension RestaurantViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.photoesCount
@@ -108,6 +135,7 @@ extension RestaurantViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: TableViewDelegate
 extension RestaurantViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.reviewCount
@@ -122,5 +150,45 @@ extension RestaurantViewController: UITableViewDataSource {
            
         cell.setupCell(viewModel: viewModel.reviewCellModel(row: indexPath.row))
         return cell
+    }
+}
+
+// MARK: keyboard functions
+extension RestaurantViewController {
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let kbRect = view.convert(keyboardFrame.cgRectValue, from: nil)
+            let hiddenScrollViewRect = scrollView.frame.intersection(kbRect)
+            let contentInsets = UIEdgeInsets(
+                top: 0, left: 0, bottom: hiddenScrollViewRect.size.height + 5, right: 0
+            )
+            
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+            
+            var aRect = view.frame
+            aRect.size.height -= keyboardFrame.cgRectValue.height
+            let LeftDownRect = CGRect(x: authorTextField.frame.origin.x,
+                                      y: authorTextField.frame.origin.y + authorTextField.frame.height,
+                                      width: authorTextField.frame.width,
+                                      height: authorTextField.frame.height)
+            
+            if !aRect.contains(LeftDownRect.origin) {
+                scrollView.scrollRectToVisible(authorTextField.frame, animated: true)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }    
+}
+
+extension RestaurantViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 }

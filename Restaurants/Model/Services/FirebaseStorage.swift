@@ -16,9 +16,9 @@ class FirebaseStorage: StorageManager {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             do {
-                request.httpBody =  try JSONSerialization.data(withJSONObject: review, options: [])
+                request.httpBody =  try JSONEncoder().encode(review)
             } catch let error {
-                return
+                print(error.localizedDescription)
             }
                 
             let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
@@ -28,6 +28,7 @@ class FirebaseStorage: StorageManager {
                     callback()
                 } catch let error {
                     //error handling
+                    print(error.localizedDescription)
                 }
             })
             task.resume()
@@ -39,16 +40,17 @@ class FirebaseStorage: StorageManager {
         request.httpMethod = "GET"
             
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
-        guard let data = data else { return }//error handling
-        do {
-            let restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
-            callback(restaurants)
-        } catch let error {
+            guard let data = data else { return }//error handling
+            do {
+                let restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
+                callback(restaurants)
+            } catch let error {
                 //error handling
-        }
+                print(error.localizedDescription)
+            }
         })
-            
-            task.resume()
+        
+        task.resume()
     }
     
     func loadAllReviews(callback: @escaping ([Review]) -> Void) {
@@ -73,7 +75,8 @@ class FirebaseStorage: StorageManager {
                 }
                 callback(reviews)
             } catch let error {
-                //error handling
+                //error handling                
+                print(error.localizedDescription)
             }
         })
             
