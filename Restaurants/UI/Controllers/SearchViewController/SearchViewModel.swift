@@ -26,12 +26,18 @@ class SearchViewModel: TabViewModel {
 }
 
 extension SearchViewModel {
-    func loadRestaurants(callback: @escaping () -> Void) {
-        storage.loadRestaurants(storageType: storageType, callback: { [weak self] data in
+    func loadRestaurants(callback: @escaping (AppError?) -> Void) {
+        storage.loadRestaurants(storageType: storageType, callback: { [weak self] result in
             guard let self = self else { return }
-            self.restaurants = data
-            self.allRestaurants = data
-            callback()
+            switch result {
+            case .success(let data):
+                self.restaurants = data
+                self.allRestaurants = data
+                callback(nil)
+                
+            case .failure(let error):
+                callback(error)
+            }
         })
     }
     

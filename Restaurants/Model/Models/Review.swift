@@ -15,7 +15,7 @@ struct RemoteReview: Codable {
     let reviewText: String
 }
 
-struct Review {
+struct Review: Codable {
     let author: String
     let date: Date
     let restaurantId: Int

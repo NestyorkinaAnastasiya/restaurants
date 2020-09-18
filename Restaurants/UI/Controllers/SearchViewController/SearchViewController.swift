@@ -22,10 +22,18 @@ class SearchViewController: UIViewController, Storyboarded {
                            forCellReuseIdentifier: RestaurantViewCell.cellReuseID)
         searchRestaurantBar.delegate = self
         
-        viewModel.loadRestaurants { [weak self] in
+        viewModel.loadRestaurants { [weak self] error in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if let error = error {
+                switch error {
+                case .noInternet: return
+                case .unavailableServer: return
+                default: return
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }

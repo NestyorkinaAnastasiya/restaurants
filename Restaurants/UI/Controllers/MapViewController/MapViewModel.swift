@@ -28,18 +28,24 @@ class MapViewModel: TabViewModel {
 
 extension MapViewModel {
     
-    func annotations(callback: @escaping ([MKAnnotation]) -> Void) {
-        storage.loadRestaurants(storageType: storageType, callback: { [weak self] data in
+    func annotations(callback: @escaping (Result<[MKAnnotation], AppError>) -> Void) {
+        storage.loadRestaurants(storageType: storageType, callback: { [weak self] result in
             guard let self = self else { return }
-            self.restaurants = data
-               
-            var result: [MKAnnotation] = []
-            for restaurant in self.restaurants {
-                let annotation = RestaurantAnnotationModelView(restaurant: restaurant)
-                result.append(annotation)
+            switch result {
+            case .success(let data):
+                self.restaurants = data
+                   
+                var result: [MKAnnotation] = []
+                for restaurant in self.restaurants {
+                    let annotation = RestaurantAnnotationModelView(restaurant: restaurant)
+                    result.append(annotation)
+                }
+                
+                callback(.success(result))
+                
+            case .failure(let error):
+                callback(.failure(error))
             }
-            
-            callback(result)
         })
     }
 }

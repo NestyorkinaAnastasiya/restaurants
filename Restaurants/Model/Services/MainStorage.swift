@@ -17,28 +17,30 @@ class MainStorage {
     private let localStorage = CoreDataStorage()
     private let firebaseStorage = FirebaseStorage()
     
-    func updateReviews(review: RemoteReview, storageType: StorageType, callback: @escaping () -> Void) {
+    func updateReviews(review: RemoteReview, storageType: StorageType, callback: @escaping (AppError?) -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.updateReviews(review: review, callback: callback)
             case .coreData: localStorage.updateReviews(review: review, callback: callback)
         }
     }
     
-    func loadRestaurants(storageType: StorageType, callback: @escaping ([Restaurant]) -> Void) {
+    func loadRestaurants(storageType: StorageType, callback: @escaping (Result<[Restaurant], AppError>) -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.loadRestaurants(callback: callback)
             case .coreData: localStorage.loadRestaurants(callback: callback)
         }
     }
     
-    func loadAllReviews(storageType: StorageType, callback: @escaping ([Review]) -> Void) {
+    func loadAllReviews(storageType: StorageType, callback: @escaping (Result<[Review], AppError>) -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.loadAllReviews(callback: callback)
             case .coreData: localStorage.loadAllReviews(callback: callback)
         }
     }
     
-    func loadRestaurantReviews(restaurantId: Int, storageType: StorageType, callback: @escaping ([Review]) -> Void) {
+    func loadRestaurantReviews(restaurantId: Int,
+                               storageType: StorageType,
+                               callback: @escaping (Result<[Review], AppError>) -> Void) {
         switch storageType {
             case .firebase: firebaseStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
             case .coreData: localStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)

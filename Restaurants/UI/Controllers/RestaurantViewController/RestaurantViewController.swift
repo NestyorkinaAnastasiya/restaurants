@@ -54,10 +54,18 @@ class RestaurantViewController: UIViewController, Storyboarded {
         tableView.register(UINib(nibName: ReviewTableViewCell.cellReuseID, bundle: nil),
         forCellReuseIdentifier: ReviewTableViewCell.cellReuseID)
         
-        viewModel.reloadReviews { [weak self] in
+        viewModel.reloadReviews { [weak self] error in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if let error = error {
+                switch error {
+                case .noInternet: return
+                case .unavailableServer: return
+                default: return
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
         
@@ -76,12 +84,49 @@ class RestaurantViewController: UIViewController, Storyboarded {
     @IBAction func tapSendButton(_ sender: Any) {
         guard let authorText = authorTextField.text, let reviewText = reviewTextView.text else { return }
         viewModel.addReview(author: authorText,
-                            reviewText: reviewText) { [weak self] in
+                            reviewText: reviewText) { [weak self] error in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if let error = error {
+                switch error {
+                case .dataNotFound:
+                    if self.reviewTextView.text == "" {
+                        self.animateTextView()
+                    }
+                    if self.authorTextField.text == "" {
+                        self.animateTextField()
+                        
+                    }
+                case .noInternet: return
+                case .unavailableServer: return
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
+    }
+}
+
+private extension RestaurantViewController {
+    func animateTextField() {
+        let shake = CAKeyframeAnimation(keyPath: "transform.translation.x")
+           
+        shake.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        shake.duration = 0.5
+        shake.values = [-5.0, 5.0, -5.0, 5.0, 0.0]
+           
+        authorTextField.layer.add(shake, forKey: "transform.translation.x");
+    }
+    
+    func animateTextView() {
+        let shake = CAKeyframeAnimation(keyPath: "transform.translation.x")
+           
+        shake.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        shake.duration = 0.5
+        shake.values = [-5.0, 5.0, -5.0, 5.0, 0.0]
+           
+        reviewTextView.layer.add(shake, forKey: "transform.translation.x");
     }
 }
 

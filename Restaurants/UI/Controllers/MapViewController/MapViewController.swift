@@ -17,9 +17,18 @@ class MapViewController: UIViewController, Storyboarded {
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.annotations { [weak self] annotations in
+        viewModel.annotations { [weak self] result in
             guard let self = self else { return }
-            self.mapView.addAnnotations(annotations)
+            switch result {
+            case .success(let annotations):
+                self.mapView.addAnnotations(annotations)
+            case .failure(let error):
+                switch error {
+                case .noInternet: return
+                case .unavailableServer: return
+                default: return
+                }
+            }
         }
     }
 }

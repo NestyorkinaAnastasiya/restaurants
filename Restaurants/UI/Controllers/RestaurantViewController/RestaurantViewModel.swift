@@ -81,17 +81,28 @@ extension RestaurantViewModel {
 }
 
 extension RestaurantViewModel {
-    func reloadReviews (callback: @escaping () -> Void) {
+    func reloadReviews (callback: @escaping (AppError?) -> Void) {
         storage.loadRestaurantReviews(restaurantId: restaurant.id,
                                       storageType: storageType,
                                       callback: { [weak self] data in
             guard let self = self else { return }
-            self.reviews = data.sorted{ $0.date < $1.date }
-            callback()
+            switch data {
+            case .success(let reviews):
+                self.reviews = reviews.sorted{ $0.date < $1.date }
+                callback(nil)
+            case .failure(let error):
+                callback(error)
+            }
+                
         })
     }
     
-    func addReview(author: String, reviewText: String, callback: @escaping () -> Void) {
+    func addReview(author: String, reviewText: String, callback: @escaping (AppError?) -> Void) {
+        if author == "" || reviewText == "" {
+            callback(AppError.dataNotFound)
+            return
+        }
+        
         let currentDate = Date()
         let dateFormatter = ISO8601DateFormatter()
         let date = dateFormatter.string(from: currentDate)
@@ -99,9 +110,13 @@ extension RestaurantViewModel {
                                                    date: date,
                                                    restaurantId: restaurant.id,
                                                    reviewText: reviewText),
-                              storageType: storageType) { [weak self] in
+                              storageType: storageType) { [weak self] error in
             guard let self = self else { return }
-            self.reloadReviews(callback: callback)
+            if let error = error {
+                  callback(error)
+            } else {
+                self.reloadReviews(callback: callback)
+            }
         }
     }
     

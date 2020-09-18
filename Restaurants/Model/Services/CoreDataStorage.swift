@@ -10,21 +10,20 @@ import Foundation
 
 class CoreDataStorage: StorageManager {
     
-    func updateReviews(review: RemoteReview, callback: @escaping () -> Void) {
+    func updateReviews(review: RemoteReview, callback: @escaping (AppError?) -> Void) {
         
     }
     
-    func loadRestaurants(callback: @escaping ([Restaurant]) -> Void) {
+    func loadRestaurants(callback: @escaping (Result<[Restaurant], AppError>) -> Void) {
         
     }
     
-    func loadAllReviews(callback: @escaping ([Review]) -> Void) {
+    func loadAllReviews(callback: @escaping (Result<[Review], AppError>) -> Void) {
         
     }
     
-    func loadRestaurantReviews(restaurantId: Int, callback: @escaping ([Review]) -> Void) {
+    func loadRestaurantReviews(restaurantId: Int, callback: @escaping (Result<[Review], AppError>) -> Void) {
         
     }
-    
     
 }
