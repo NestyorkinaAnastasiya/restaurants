@@ -11,7 +11,7 @@ import UIKit
 
 class SearchViewController: UIViewController, Storyboarded {
     weak var coordinator: ChildCoordinator?    
-    var viewModel: SearchViewModel!
+    var viewModel: TabSearchViewModel!
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchRestaurantBar: UISearchBar!
@@ -58,6 +58,7 @@ extension SearchViewController: UITableViewDataSource {
 
 extension SearchViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isSelected = false
         coordinator?.restaurant(viewModel: viewModel, row: indexPath.row)
     }
 }

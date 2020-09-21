@@ -1,20 +1,20 @@
 //
-//  StorageViewModel.swift
+//  FavouriteViewModel.swift
 //  Restaurants
 //
-//  Created by Anastasia Nesterkina on 14.09.2020.
+//  Created by Anastasia Nesterkina on 21.09.2020.
 //  Copyright © 2020 Anastasia Nesterkina. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class SearchViewModel: TabSearchViewModel {
+class FavouriteViewModel: TabSearchViewModel {
     private var storage: MainStorage
     var restaurants: [Restaurant] = []
     private var allRestaurants: [Restaurant] = []
     var storageType: StorageType {
-        return .remote
+        return .local
     }
     var restourantsCount: Int {
         return restaurants.count
@@ -25,9 +25,9 @@ class SearchViewModel: TabSearchViewModel {
     }
 }
 
-extension SearchViewModel {
+extension FavouriteViewModel {
     func loadRestaurants(callback: @escaping (AppError?) -> Void) {
-        storage.loadRestaurants(storageType: .remote, callback: { [weak self] result in
+        storage.loadRestaurants(storageType: .local, callback: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

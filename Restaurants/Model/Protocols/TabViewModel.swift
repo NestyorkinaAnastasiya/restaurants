@@ -10,5 +10,12 @@ import Foundation
 
 protocol TabViewModel {
     var restaurants: [Restaurant] { get set }
-    var storageType: StorageType { get set }
+    var storageType: StorageType { get }    
+    var restourantsCount: Int { get }
+}
+
+protocol TabSearchViewModel: TabViewModel {
+    func restaurantCellViewModel(row: Int) -> RestaurantCellViewModel
+    func loadRestaurants(callback: @escaping (AppError?) -> Void)
+    func searchRestaurants(text: String, callback: @escaping () -> Void)
 }

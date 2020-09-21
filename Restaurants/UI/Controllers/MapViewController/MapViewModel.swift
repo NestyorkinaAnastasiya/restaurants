@@ -13,15 +13,14 @@ import MapKit
 class MapViewModel: TabViewModel {
     private var storage: MainStorage
     var restaurants: [Restaurant] = []
-    var storageType: StorageType
-    
+    var storageType: StorageType {
+        return .remote
+    }
     var restourantsCount: Int {
         return restaurants.count
     }
     
-    init (storageType: StorageType,
-          storage: MainStorage) {
-        self.storageType = storageType
+    init (storage: MainStorage) {
         self.storage = storage
     }
 }
@@ -29,7 +28,7 @@ class MapViewModel: TabViewModel {
 extension MapViewModel {
     
     func annotations(callback: @escaping (Result<[MKAnnotation], AppError>) -> Void) {
-        storage.loadRestaurants(storageType: storageType, callback: { [weak self] result in
+        storage.loadRestaurants(storageType: .remote, callback: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

@@ -39,13 +39,11 @@ class MainCoordinator: Coordinator {
                     search.coordinator = childCoordinator
                     
                     if first == true {
-                        search.viewModel = SearchViewModel(storageType: .firebase,
-                                                           storage: storage)
+                        search.viewModel = SearchViewModel(storage: storage)
                         search.title = "Search"
                         first = false
                     } else {
-                        search.viewModel = SearchViewModel(storageType: .coreData,
-                                                           storage: storage)
+                        search.viewModel = FavouriteViewModel(storage: storage)
                         search.tabBarItem = UITabBarItem(title: "Favourite",
                                                          image: UIImage(systemName: "star.fill",
                                                                         withConfiguration: nil),
@@ -55,8 +53,7 @@ class MainCoordinator: Coordinator {
                     
                 } else if let map = viewController as? MapViewController {
                     map.coordinator = childCoordinator
-                    map.viewModel = MapViewModel(storageType: .firebase,
-                                                 storage: storage)
+                    map.viewModel = MapViewModel(storage: storage)
                     map.title = "Map"
                 }
             }

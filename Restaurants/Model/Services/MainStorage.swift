@@ -9,8 +9,8 @@
 import Foundation
 
 enum StorageType {
-    case firebase
-    case coreData
+    case local
+    case remote
 }
 
 class MainStorage {
@@ -19,22 +19,22 @@ class MainStorage {
     
     func updateReviews(review: RemoteReview, storageType: StorageType, callback: @escaping (AppError?) -> Void) {
         switch storageType {
-            case .firebase: firebaseStorage.updateReviews(review: review, callback: callback)
-            case .coreData: localStorage.updateReviews(review: review, callback: callback)
+            case .remote: firebaseStorage.updateReviews(review: review, callback: callback)
+            case .local: localStorage.updateReviews(review: review, callback: callback)
         }
     }
     
     func loadRestaurants(storageType: StorageType, callback: @escaping (Result<[Restaurant], AppError>) -> Void) {
         switch storageType {
-            case .firebase: firebaseStorage.loadRestaurants(callback: callback)
-            case .coreData: localStorage.loadRestaurants(callback: callback)
+            case .remote: firebaseStorage.loadRestaurants(callback: callback)
+            case .local: localStorage.loadRestaurants(callback: callback)
         }
     }
     
     func loadAllReviews(storageType: StorageType, callback: @escaping (Result<[Review], AppError>) -> Void) {
         switch storageType {
-            case .firebase: firebaseStorage.loadAllReviews(callback: callback)
-            case .coreData: localStorage.loadAllReviews(callback: callback)
+            case .remote: firebaseStorage.loadAllReviews(callback: callback)
+            case .local: localStorage.loadAllReviews(callback: callback)
         }
     }
     
@@ -42,8 +42,8 @@ class MainStorage {
                                storageType: StorageType,
                                callback: @escaping (Result<[Review], AppError>) -> Void) {
         switch storageType {
-            case .firebase: firebaseStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
-            case .coreData: localStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
+            case .remote: firebaseStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
+            case .local: localStorage.loadRestaurantReviews(restaurantId: restaurantId, callback: callback)
         }
     }
     

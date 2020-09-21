@@ -111,11 +111,10 @@ class FirebaseStorage: StorageManager {
             } else {
                 guard let data = data else { return }
                 do {
-                    let result = try JSONDecoder().decode([String: RemoteReview].self, from: data)
+                    let result = try JSONDecoder().decode(DecodableDictionaryContainer<String, RemoteReview>.self, from: data).elements
                     var reviews: [Review] = []
                     let dateFormatter = ISO8601DateFormatter()
-                   for remoteReview in result {
-                        let review = remoteReview.value
+                    for review in result {
                         if let date = dateFormatter.date(from: review.date) {
                             reviews.append(Review(author: review.author,
                                                   date: date,
